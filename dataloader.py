@@ -10,7 +10,7 @@ mongo.connect("chest_image")
 #with open('local_data/ID00426637202313170790466_91.jpg', 'rb') as f:
 #    res = mongo.gfs_upload(f, filename="chest1.jpg")
 #print(res)
-
-mongo.gfs_download(output_file_path="/Users/ysh/Dev/Python/mitsAI/download/chest1.jpg", filename="chest1.jpg")
+local_download_path = "/Users/ysh/Dev/Python/mitsAI/download/chest1.jpg"
+filename = "chest1.jpg"
+mongo.gfs_download(output_file_path=local_download_path+filename, filename=filename)
 mongo.close()
-
