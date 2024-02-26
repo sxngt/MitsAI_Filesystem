@@ -1,4 +1,4 @@
-import dataloader
+import data_loader
 from database.config import URI
 from database.conn import mongo
 
