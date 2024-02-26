@@ -13,7 +13,7 @@ mongo.connect("chest_image")
 #    res = mongo.gfs_upload(f, filename="chest1.jpg")
 # print(res)
 local_download_path = "/Users/ysh/Dev/Python/mitsAI/download/"
-filename = "chest1.jpg"
+filename = "ID00426637202313170790466_97.jpg"
 mongo.gfs_download(output_file_path=local_download_path + filename, filename=filename)
 mongo.close()
 
