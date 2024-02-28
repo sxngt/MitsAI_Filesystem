@@ -2,6 +2,7 @@ from data_loader import data_name_to_list
 from database.config import URI
 from database.conn import mongo
 from argparse import ArgumentParser, BooleanOptionalAction
+from os import listdir, path
 
 project_home_path = "/Users/ysh/Dev/Python/mitsAI"
 
@@ -19,11 +20,33 @@ if __name__ == "__main__":
                                                                                    "subdirectories in batches.")
 
     args = parser.parse_args()
-    if args.subdirectory:
-        #TODO: 대용량 파일 처리 로직 만들기
-    else:
-        filename_list = data_name_to_list(project_home_path + args.path)
 
+    filename_list = data_name_to_list(project_home_path + args.path)
+
+
+    def put_files_in_gridfs(folder_path, parent_folder=''):
+        for item in listdir(folder_path):
+            item_path = path.join(folder_path, item)
+            if path.isdir(item_path):
+                # 폴더인 경우, 재귀적으로 내부 탐색
+                put_files_in_gridfs(item_path, parent_folder=path.join(parent_folder, item))
+            else:
+                # 파일인 경우, GridFS에 저장
+                with open(item_path, 'rb') as f:
+                    mongo.gfs_upload(f, filename=item, metadata={'folder': parent_folder})
+                    print("upload", item)
+
+
+
+
+    if args.subdirectory:
+        mongo.connect(args.database)
+
+        put_files_in_gridfs(project_home_path + "/" + args.path)
+
+        mongo.close()
+
+    else:
         mongo.connect(args.database)
 
         for filename in filename_list:
