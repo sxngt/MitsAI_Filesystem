@@ -47,10 +47,10 @@ class MongoDB:
         result = coll.find({})
         return result
 
-    def gfs_upload(self, data, filename):
+    def gfs_upload(self, data, filename, metadata):
         gfs = GridFS(self.db)
         data = data
-        insert_image = gfs.put(data, filename=filename)
+        insert_image = gfs.put(data, filename=filename, metadata=metadata)
         return insert_image
 
     def gfs_get(self, filter):
