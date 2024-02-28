@@ -37,8 +37,6 @@ if __name__ == "__main__":
                     print("upload", item)
 
 
-
-
     if args.subdirectory:
         mongo.connect(args.database)
 
