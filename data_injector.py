@@ -45,6 +45,8 @@ if __name__ == "__main__":
         mongo.close()
 
     else:
+
+        #TODO 해당메소드 고도화 필요
         mongo.connect(args.database)
 
         for filename in filename_list:
