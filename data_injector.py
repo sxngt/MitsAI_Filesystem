@@ -29,11 +29,12 @@ if __name__ == "__main__":
             item_path = path.join(folder_path, item)
             if path.isdir(item_path):
                 # 폴더인 경우, 재귀적으로 내부 탐색
-                put_files_in_gridfs(item_path, parent_folder=path.join(parent_folder, item))
+                put_files_in_gridfs(item_path,parent_folder=path.join(parent_folder, item).replace('\\', '/'))
             else:
                 # 파일인 경우, GridFS에 저장
                 with open(item_path, 'rb') as f:
-                    mongo.gfs_upload(f, filename=item, metadata={'folder': parent_folder})
+                    uniform_parent_folder = parent_folder.replace('\\', '/')
+                    mongo.gfs_upload(f, filename=item, metadata={'folder': uniform_parent_folder})
                     print("upload", item)
 
 
