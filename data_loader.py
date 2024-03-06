@@ -8,10 +8,9 @@ if __name__ == "__main__":
 
     # 싱글턴처럼 사용합시다...
 
-    mongo.connect("chest_image")
-
-    # with open('local_data/ID00426637202313170790466_91.jpg', 'rb') as f:
-    #    res = mongo.gfs_upload(f, filename="chest1.jpg")
+    mongo.connect("Finger_motion_data")
+    mongo.gfs_download(output_file_path="/Users/ysh/Dev/Python/mitsAI/download/15FRU_9 - 9of20.mp4", filename="15FRU_9 - 9of20.mp4")
+    mongo.close()
 
 
 def data_name_to_list(folder_path: str) -> list:
